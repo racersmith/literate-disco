@@ -1,7 +1,7 @@
 {
     "sketch": "soap.ino",
-    "programmer": "AVRISP mkII",
     "board": "arduino:samd:mkrwifi1010",
     "port": "/dev/ttyACM0",
+    "programmer": "AVRISP mkII",
     "output": "build"
 }

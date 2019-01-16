@@ -3,18 +3,18 @@
         {
             "name": "Linux",
             "includePath": [
-                "/home/josh/.arduino15/packages/arduino/tools/**",
-                "/home/josh/.arduino15/packages/arduino/hardware/samd/1.6.20/**",
-                "${workspaceFolder}/**"
+                "{workspaceFolder}/**",
+                "/home/josh/Documents/version-control/soap/libraries/**",
+                "/home/josh/.arduino15/packages/arduino/hardware/samd/1.6.20/cores/arduino",
+                "/home/josh/.arduino15/packages/arduino/tools/CMSIS-Atmel/1.1.0/CMSIS/Device/ATMEL",
+                "/home/josh/.arduino15/packages/arduino/hardware/samd/1.6.20/variants/mkrwifi1010",
+                "/home/josh/.arduino15/packages/arduino/hardware/samd/1.6.20/libraries/Wire"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x64",
-            "forcedInclude": [
-                "/home/josh/.arduino15/packages/arduino/hardware/samd/1.6.20/cores/arduino/Arduino.h"
-            ]
+            "intelliSenseMode": "clang-x64"
         }
     ],
     "version": 4
