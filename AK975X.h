@@ -1,5 +1,7 @@
 #include <Wire.h>
-#include "SparkFun_AK975X_Arduino_Library.h" //Use Library Manager or download here: https://github.com/sparkfun/SparkFun_AK975X_Arduino_Library
+
+ //Use Library Manager or download here: https://github.com/sparkfun/SparkFun_AK975X_Arduino_Library
+#include <SparkFun_AK975X_Arduino_Library.h>
 #include <ArduinoJson.h>
 
 class HumanPresenceSensor: private AK975X{

@@ -1,22 +1,22 @@
 #include <Arduino.h>
 #include <ArduinoJson.h>
-// #include <WiFiNINA.h>
-// #include <ThingerWifi101.h>
-// #include "Secret.h"
+#include <WiFiNINA.h>
+#include <ThingerWifi101.h>
+#include "Secret.h"
 #include "APDS.h"
 #include "AK975X.h"
 #include "AS7265X.h"
 
 #define SAMPLE_INDICATOR LED_BUILTIN
 
-// #define USERNAME  SECRET_USERNAME
-// #define DEVICE_ID SECRET_DEVICE_ID
-// #define DEVICE_CREDENTIAL SECRET_DEVICE_CREDENTIAL
+#define USERNAME  SECRET_USERNAME
+#define DEVICE_ID SECRET_DEVICE_ID
+#define DEVICE_CREDENTIAL SECRET_DEVICE_CREDENTIAL
 
-// #define SSID  SECRET_SSID
-// #define SSID_PASSWORD SECRET_SSID_PASSWORD
+#define SSID  SECRET_SSID
+#define SSID_PASSWORD SECRET_SSID_PASSWORD
 
-// ThingerWifi101 thing(USERNAME, DEVICE_ID, DEVICE_CREDENTIAL);
+ThingerWifi101 thing(USERNAME, DEVICE_ID, DEVICE_CREDENTIAL);
 
 HumanPresenceSensor hps;
 GestureSensor gesture;

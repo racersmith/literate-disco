@@ -1,4 +1,4 @@
-#include "SparkFun_AS7265X.h" //Click here to get the library: http://librarymanager/All#SparkFun_AS7265X
+#include <SparkFun_AS7265X.h> //Click here to get the library: http://librarymanager/All#SparkFun_AS7265X
 #include <Wire.h>
 #include <ArduinoJson.h>
 
