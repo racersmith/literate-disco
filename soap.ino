@@ -39,7 +39,8 @@ unsigned long max_read_interval = 1000;
 void setup() {
   Wire.setClock(400000);
   Serial.begin(9600);
-  while(!Serial);
+  unsigned long wait_time = millis() + 10e3;
+  while(!Serial && millis() < wait_time);
 
   hps.Initialize();
   hps.SetMinSampleInterval(50);
