@@ -7,6 +7,7 @@
             ],
             "includePath": [
                 "${workspaceFolder}",
+                "${workspaceFolder}/**",
                 "/home/josh/.arduino15/packages/arduino/tools/CMSIS-Atmel/1.1.0/CMSIS/Device/ATMEL",
                 "/home/josh/.arduino15/packages/arduino/hardware/samd/1.6.20/cores/arduino",
                 "/home/josh/.arduino15/packages/arduino/hardware/samd/1.6.20/variants/mkrwifi1010",
