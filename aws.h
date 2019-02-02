@@ -55,13 +55,14 @@ void connectMQTT() {
 
     int attempts = 0;
     while (!mqttClient.connect(broker, 8883)) {
+        attempts = min(attempts + 1, 10);
         // failed, retry
-        Serial.print(".");
-        delay(attempts*20 + 5);
-        attempts++;
-        if (attempts > 250){
-            attempts = 250;
-        }
+        // Exponetial backoff with jitter
+        unsigned long max_delay = pow(2, attempts) * 10;
+        unsigned long delay_time = micros() % max_delay;
+
+        Serial.println("Retrying in " + String(delay_time)+ "ms");
+        delay(delay_time);
     }
     Serial.println();
 
@@ -140,8 +141,6 @@ void onMessageReceived(int messageSize) {
 
 
 void awsSetup(){
-    while (!Serial);
-
     if (!ECCX08.begin()) {
         Serial.println("No ECCX08 present!");
         while (1);
@@ -162,7 +161,8 @@ void awsSetup(){
     //
     // mqttClient.setId("clientId");
     uid = get_uid();
-    // mqttClient.setId(uid);
+    mqttClient.setId(uid);
+    // mqttClient.setId("MKR1010");
 
     // Set the message callback, this function is
     // called when the MQTTClient receives a message
