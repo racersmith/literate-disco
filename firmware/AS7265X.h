@@ -101,8 +101,7 @@ class SpectralSensor: private AS7265X{
       }
     }
 
-    void triggerRead(uint8_t int_cycles=20){
-      setIntegrationCycles(int_cycles);
+    void triggerRead(){
       setMeasurementMode(AS7265X_MEASUREMENT_MODE_6CHAN_ONE_SHOT);
       // getG();
       // getR();
