@@ -3,7 +3,32 @@
 #include <ArduinoMqttClient.h>
 #include <WiFiNINA.h>
 #include <ArduinoJson.h>
-#include "Secret.h"
+#include "Secrets.h"
+
+
+/*
+These are all defined within Secrets.h and excluded from git Here is a template to use
+Huge thank you to Sandeep Mistry for the excelent tutorial, libraries and examples:
+https://create.arduino.cc/projecthub/Arduino_Genuino/securely-connecting-an-arduino-mkr-wifi-1010-to-aws-iot-core-a9f365
+https://github.com/arduino/ArduinoCloudProviderExamples
+
+
+// Wifi network
+#define SECRET_SSID   "xxxxxxxxxxxxxx"
+#define SECRET_SSID_PASSWORD    "xxxxxxxxxxxxxx"
+
+// AWS IOT Core -> Settings -> Custom endpoint
+#define SECRET_BROKER "xxxxxxxxxxxxxx-xxx.iot.xx-xxxx-x.amazonaws.com"
+
+// Fill in the boards public certificate
+// This is the cert that is reterned from AWS
+// after using the CSR from the MKR1010 cryptochip
+const char SECRET_CERTIFICATE[] = R"(
+-----BEGIN CERTIFICATE-----
+
+-----END CERTIFICATE-----
+)";
+*/
 
 const char ssid[]        = SECRET_SSID;
 const char pass[]        = SECRET_SSID_PASSWORD;
