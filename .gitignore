@@ -1,4 +1,2 @@
-Secret.h
-build/
-build/build.options.json
-build/sketch/soap.ino.cpp
+Secrets.h
+.vscode/
