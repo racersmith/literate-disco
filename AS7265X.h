@@ -11,35 +11,41 @@ class SpectralSensor: private AS7265X{
     uint8_t int_cycles_dark = 64;  //64 is the shortest time that gives full resolution
     uint8_t int_cycles_illum = 20; //20 is the default...
 
-    void Read(JsonArray& json_array){
-      JsonObject& sensor = json_array.createNestedObject();
+    void Read(JsonObject& sensor){
       sensor["sensor"] = "AS7265X";
-      sensor["time"] = millis();
+      // sensor["time"] = millis();
       JsonObject& sensor_data = sensor.createNestedObject("data");
       
       // UV
-      sensor_data["A"] = getCalibratedA();
-      sensor_data["B"] = getCalibratedB();
-      sensor_data["C"] = getCalibratedC();
-      sensor_data["D"] = getCalibratedD();
-      sensor_data["E"] = getCalibratedE();
-      sensor_data["F"] = getCalibratedF();
+      sensor_data["A"] = getCalibratedA();  // A = 410nm
+      sensor_data["B"] = getCalibratedB();  // B = 435nm
+      sensor_data["C"] = getCalibratedC();  // C = 460nm
+      sensor_data["D"] = getCalibratedD();  // D = 485nm
+      sensor_data["E"] = getCalibratedE();  // E = 510nm
+      sensor_data["F"] = getCalibratedF();  // F = 535nm
     
       // Visible
-      sensor_data["G"] = getCalibratedG();
-      sensor_data["H"] = getCalibratedH();
-      sensor_data["I"] = getCalibratedI();
-      sensor_data["J"] = getCalibratedJ();
-      sensor_data["K"] = getCalibratedK();
-      sensor_data["L"] = getCalibratedL();
+      sensor_data["G"] = getCalibratedG();  // G = 560nm
+      sensor_data["H"] = getCalibratedH();  // H = 585nm
+      sensor_data["I"] = getCalibratedI();  // I = 645nm
+      sensor_data["J"] = getCalibratedJ();  // J = 705nm
+      sensor_data["K"] = getCalibratedK();  // K = 900nm
+      sensor_data["L"] = getCalibratedL();  // L = 940nm
     
       // NIR
-      sensor_data["R"] = getCalibratedR();
-      sensor_data["S"] = getCalibratedS();
-      sensor_data["T"] = getCalibratedT();
-      sensor_data["U"] = getCalibratedU();
-      sensor_data["V"] = getCalibratedV();
-      sensor_data["W"] = getCalibratedW();
+      sensor_data["R"] = getCalibratedR();  // R = 610nm
+      sensor_data["S"] = getCalibratedS();  // S = 680nm
+      sensor_data["T"] = getCalibratedT();  // T = 730nm
+      sensor_data["U"] = getCalibratedU();  // U = 760nm
+      sensor_data["V"] = getCalibratedV();  // V = 810nm
+      sensor_data["W"] = getCalibratedW();  // W = 860nm
+
+      sensor_data["temp"] = getTemperatureAverage();
+    }
+
+    void Read(JsonArray& json_array){
+      JsonObject& sensor = json_array.createNestedObject();
+      Read(sensor);
     }
     
   public:
@@ -53,7 +59,8 @@ class SpectralSensor: private AS7265X{
 
       setIntegrationCycles(int_cycles_dark);
       setMeasurementMode(AS7265X_MEASUREMENT_MODE_6CHAN_CONTINUOUS);
-
+      
+      // Illuminate(false);
       setBulbCurrent(AS7265X_LED_CURRENT_LIMIT_12_5MA, AS7265x_LED_WHITE);
       setBulbCurrent(AS7265X_LED_CURRENT_LIMIT_12_5MA, AS7265x_LED_IR);
       setBulbCurrent(AS7265X_LED_CURRENT_LIMIT_12_5MA, AS7265x_LED_UV);
@@ -68,35 +75,49 @@ class SpectralSensor: private AS7265X{
 
     void Illuminate(bool on){
       if(on){
-        setIntegrationCycles(int_cycles_illum);
-        disableIndicator();
         enableBulb(AS7265x_LED_WHITE);
         enableBulb(AS7265x_LED_IR);
         enableBulb(AS7265x_LED_UV);
+        disableIndicator();
+        setIntegrationCycles(int_cycles_illum);
       }
       else{
-        setIntegrationCycles(int_cycles_dark);
-        enableIndicator();
         disableBulb(AS7265x_LED_WHITE);
         disableBulb(AS7265x_LED_IR);
         disableBulb(AS7265x_LED_UV);
+        enableIndicator();
+        setIntegrationCycles(int_cycles_dark);
       }
         
     }
 
-  
+    bool available(){
+      return dataAvailable();
+    }
+
     void AvailableRead(JsonArray& data){
       if(dataAvailable()){
         Read(data);
       }
     }
 
+    void triggerRead(uint8_t int_cycles=20){
+      setIntegrationCycles(int_cycles);
+      setMeasurementMode(AS7265X_MEASUREMENT_MODE_6CHAN_ONE_SHOT);
+      // getG();
+      // getR();
+      // getA();
+    }
 
     void BlockingRead(JsonArray& data){
       while(!dataAvailable());
       Read(data);
     }
 
+    void BlockingRead(JsonObject& data){
+      while(!dataAvailable());
+      Read(data);
+    }
     
     void ScheduledRead(JsonArray& data){
       if (millis() >= next_read_millis){

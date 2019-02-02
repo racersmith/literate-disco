@@ -6,6 +6,7 @@
                 "ARDUINO=10800"
             ],
             "includePath": [
+                "${workspaceFolder}",
                 "/home/josh/.arduino15/packages/arduino/tools/CMSIS-Atmel/1.1.0/CMSIS/Device/ATMEL",
                 "/home/josh/.arduino15/packages/arduino/hardware/samd/1.6.20/cores/arduino",
                 "/home/josh/.arduino15/packages/arduino/hardware/samd/1.6.20/variants/mkrwifi1010",
@@ -15,7 +16,8 @@
                 "/home/josh/Arduino/libraries/ArduinoJson",
                 "/home/josh/Arduino/libraries/SparkFun_AS7265x_Arduino_Library-master/src",
                 "/home/josh/Arduino/libraries/WiFiNINA/src",
-                "/home/josh/Arduino/libraries/thinger.io/src"
+                "/home/josh/Arduino/libraries/thinger.io/src",
+                "/home/josh/Arduino/libraries/**"
             ],
             "forcedInclude": [
                 "/home/josh/.arduino15/packages/arduino/hardware/samd/1.6.20/cores/arduino/Arduino.h"

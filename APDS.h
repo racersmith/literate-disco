@@ -32,13 +32,17 @@ class GestureSensor: private SparkFun_APDS9960{
 
     
   void Read(JsonArray& json_array){
+    JsonObject& sample = json_array.createNestedObject();
+    Read(sample);
+    }
+
+  void Read(JsonObject& sample){
     if(!up_to_date){
       Update();
     }
     
-    JsonObject& sample = json_array.createNestedObject();
     sample["sensor"] = "APDS9960";
-    sample["time"] = millis();
+    // sample["time"] = millis();
     JsonObject& data = sample.createNestedObject("data");
     data["proximity"] = proximity_data;
     data["ambient"] = ambient_light;
@@ -88,6 +92,10 @@ class GestureSensor: private SparkFun_APDS9960{
 
  
     void BlockingRead(JsonArray& data){
+      Read(data);
+    }
+
+    void BlockingRead(JsonObject& data){
       Read(data);
     }
 

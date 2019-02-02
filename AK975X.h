@@ -11,9 +11,15 @@ class HumanPresenceSensor: private AK975X{
   
     void Read(JsonArray& json_array){
       JsonObject& sample = json_array.createNestedObject();
+      Read(sample);
+      // refresh();
+    }
+
+    void Read(JsonObject& sample){
       sample["sensor"] = F("AK975X");
-      sample["time"] = millis();
+      
       JsonObject& data = sample.createNestedObject("data");
+      // data["time"] = millis();
       data["zone_1"] = getIR1();
       data["zone_2"] = getIR2();
       data["zone_3"] = getIR3();
@@ -26,6 +32,7 @@ class HumanPresenceSensor: private AK975X{
     void Initialize(){
       if(begin()){
         Serial.println(F("AK975X - Human Presence Sensor Initiallized"));
+        refresh();
       }
       else{
         Serial.println(F("## AK975X - Human Presence Sensor FAILED ##"));
@@ -43,6 +50,11 @@ class HumanPresenceSensor: private AK975X{
     }
 
     void BlockingRead(JsonArray& data){
+      while(!available());
+      Read(data);
+    }
+
+    void BlockingRead(JsonObject& data){
       while(!available());
       Read(data);
     }
