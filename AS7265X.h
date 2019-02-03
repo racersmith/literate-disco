@@ -12,8 +12,7 @@ class SpectralSensor: private AS7265X{
     uint8_t int_cycles_illum = 20; //20 is the default...
 
     void Read(JsonObject& sensor){
-      sensor["sensor"] = "AS7265X";
-      // sensor["time"] = millis();
+      sensor["type"] = "AS7265X";
       JsonObject& sensor_data = sensor.createNestedObject("data");
       
       // UV

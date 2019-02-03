@@ -66,46 +66,55 @@ void loop() {
   test();
 }
 
-void buildMsg(JsonObject& root, unsigned long timestamp, unsigned long start_time, unsigned int label){
+void sendHeader(unsigned long timestamp, unsigned int label){
+  const size_t capacity = JSON_OBJECT_SIZE(8);
+  StaticJsonBuffer<capacity> jsonBuffer;
+  // DynamicJsonBuffer jsonBuffer(capacity);
+  JsonObject& root = jsonBuffer.createObject();
+
   root["timestamp"] = timestamp;
-  root["uid"] = uid;
-  root["dt"] = millis() - start_time;
-  root["label"] = label;
-  root["batt"] = analogRead(ADC_BATTERY);
+  root["type"] = "header";
+  JsonObject& data = root.createNestedObject("data");
+  data["uid"] = uid;
+  data["label"] = label;
+  data["batt"] = analogRead(ADC_BATTERY);
+  awsPublishMessage(root);
 }
 
 void sendHPS(unsigned long timestamp, unsigned long start_time, unsigned int label){
-  const size_t capacity = JSON_OBJECT_SIZE(5) + JSON_OBJECT_SIZE(8);
+  const size_t capacity = JSON_OBJECT_SIZE(11);
   StaticJsonBuffer<capacity> jsonBuffer;
   // DynamicJsonBuffer jsonBuffer(capacity);
-
-  JsonObject& hps_msg = jsonBuffer.createObject();
-
-  hps.BlockingRead(hps_msg);
-  buildMsg(hps_msg, timestamp, start_time, label);
-  awsPublishMessage(hps_msg);
+  JsonObject& root = jsonBuffer.createObject();
+  root["timestamp"] = timestamp;
+  root["dt_start"] = millis() - start_time;
+  hps.BlockingRead(root);
+  root["dt_end"] = millis() - start_time;
+  awsPublishMessage(root);
 }
 
 void sendGesture(unsigned long timestamp, unsigned long start_time, unsigned int label){
-  const size_t capacity = JSON_OBJECT_SIZE(5) + JSON_OBJECT_SIZE(8);
+  const size_t capacity = JSON_OBJECT_SIZE(12);
   StaticJsonBuffer<capacity> jsonBuffer;
   // DynamicJsonBuffer jsonBuffer(capacity);
-  JsonObject& gest_msg = jsonBuffer.createObject();
-
-  gesture.BlockingRead(gest_msg);
-  buildMsg(gest_msg, timestamp, start_time, label);
-  awsPublishMessage(gest_msg);
+  JsonObject& root = jsonBuffer.createObject();
+  root["timestamp"] = timestamp;
+  root["dt_start"] = millis() - start_time;
+  gesture.BlockingRead(root);
+  root["dt_end"] = millis() - start_time;
+  awsPublishMessage(root);
 }
 
 void sendSpectral(unsigned long timestamp, unsigned long start_time, unsigned int label){
-  const size_t capacity = JSON_OBJECT_SIZE(5) + JSON_OBJECT_SIZE(22);
+  const size_t capacity = JSON_OBJECT_SIZE(27);
   StaticJsonBuffer<capacity> jsonBuffer;
   // DynamicJsonBuffer jsonBuffer(capacity);
-  JsonObject& spec_msg = jsonBuffer.createObject();
-
-  spectral.BlockingRead(spec_msg);
-  buildMsg(spec_msg, timestamp, start_time, label);
-  awsPublishMessage(spec_msg);
+  JsonObject& root = jsonBuffer.createObject();
+  root["timestamp"] = timestamp;
+  root["dt_start"] = millis() - start_time;
+  spectral.BlockingRead(root);
+  root["dt_end"] = millis() - start_time;
+  awsPublishMessage(root);
 }
 
 
@@ -119,6 +128,7 @@ void test(){
     unsigned long start_time = millis();
     unsigned int label = 0;
 
+    sendHeader(timestamp, label);
     sendHPS(timestamp, start_time, label);    
     sendGesture(timestamp, start_time, label);
     sendSpectral(timestamp, start_time, label);

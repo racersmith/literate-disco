@@ -15,10 +15,9 @@ class HumanPresenceSensor: private AK975X{
     }
 
     void Read(JsonObject& sample){
-      sample["sensor"] = F("AK975X");
+      sample["type"] = F("AK975X");
       
       JsonObject& data = sample.createNestedObject("data");
-      // data["time"] = millis();
       data["zone_1"] = getIR1();
       data["zone_2"] = getIR2();
       data["zone_3"] = getIR3();

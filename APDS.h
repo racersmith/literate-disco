@@ -41,8 +41,7 @@ class GestureSensor: private SparkFun_APDS9960{
       Update();
     }
     
-    sample["sensor"] = "APDS9960";
-    // sample["time"] = millis();
+    sample["type"] = "APDS9960";
     JsonObject& data = sample.createNestedObject("data");
     data["proximity"] = proximity_data;
     data["ambient"] = ambient_light;

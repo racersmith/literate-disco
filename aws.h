@@ -25,10 +25,9 @@ String get_uid(){
 
     for (int i=5; i>=0; i--){
         uid += String(mac[i], HEX);
-        Serial.print(i);
-        Serial.println(": " + String(mac[i], HEX));
     }
 
+    // return uid.toInt();
     return uid;
 }
 
