@@ -12,7 +12,6 @@ class HumanPresenceSensor: private AK975X{
     void Read(JsonArray& json_array){
       JsonObject& sample = json_array.createNestedObject();
       Read(sample);
-      // refresh();
     }
 
     void Read(JsonObject& sample){
@@ -24,7 +23,7 @@ class HumanPresenceSensor: private AK975X{
       data["zone_2"] = getIR2();
       data["zone_3"] = getIR3();
       data["zone_4"] = getIR4();
-      data["temp"] = getTemperature()/10;
+      data["tempHPS"] = getTemperature()/10;
       refresh();
     }
     

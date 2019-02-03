@@ -23,6 +23,7 @@ class SpectralSensor: private AS7265X{
       sensor_data["D"] = getCalibratedD();  // D = 485nm
       sensor_data["E"] = getCalibratedE();  // E = 510nm
       sensor_data["F"] = getCalibratedF();  // F = 535nm
+      sensor_data["tempUV"] = getTemperature(AS72653_UV);
     
       // Visible
       sensor_data["G"] = getCalibratedG();  // G = 560nm
@@ -31,7 +32,8 @@ class SpectralSensor: private AS7265X{
       sensor_data["J"] = getCalibratedJ();  // J = 705nm
       sensor_data["K"] = getCalibratedK();  // K = 900nm
       sensor_data["L"] = getCalibratedL();  // L = 940nm
-    
+      sensor_data["tempV"] = getTemperature(AS72652_VISIBLE);
+
       // NIR
       sensor_data["R"] = getCalibratedR();  // R = 610nm
       sensor_data["S"] = getCalibratedS();  // S = 680nm
@@ -39,8 +41,7 @@ class SpectralSensor: private AS7265X{
       sensor_data["U"] = getCalibratedU();  // U = 760nm
       sensor_data["V"] = getCalibratedV();  // V = 810nm
       sensor_data["W"] = getCalibratedW();  // W = 860nm
-
-      sensor_data["temp"] = getTemperatureAverage();
+      sensor_data["tempNIR"] = getTemperature(AS72651_NIR);
     }
 
     void Read(JsonArray& json_array){

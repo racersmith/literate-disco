@@ -161,8 +161,8 @@ void awsSetup(){
     //
     // mqttClient.setId("clientId");
     uid = get_uid();
-    mqttClient.setId(uid);
-    // mqttClient.setId("MKR1010");
+    // mqttClient.setId(uid);
+    mqttClient.setId("MKR1010");
 
     // Set the message callback, this function is
     // called when the MQTTClient receives a message
