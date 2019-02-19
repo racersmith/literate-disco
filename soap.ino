@@ -8,6 +8,7 @@
 #include "AK975X.h"
 #include "AS7265X.h"
 #include "aws.h"
+#include "label_switch.h"
 
 #define SAMPLE_INDICATOR LED_BUILTIN
 
@@ -23,13 +24,14 @@ const char* certificate  = SECRET_CERTIFICATE;
 HumanPresenceSensor hps;
 GestureSensor gesture;
 SpectralSensor spectral;
+LabelSwitch label_switch;
 
 unsigned long last_read;
 unsigned long max_read_interval = 1000;
 
 void setup() {
   Wire.setClock(400000);
-  Serial.begin(9600);
+  Serial.begin(115200);
   unsigned long wait_time = millis() + 10000;
   while(!Serial && millis() < wait_time);
 
@@ -117,7 +119,7 @@ void test(){
     
     unsigned long timestamp = getTime();
     unsigned long start_time = millis();
-    unsigned int label = 0;
+    unsigned int label = label_switch.get_state();
 
     sendHeader(timestamp, label);
     sendHPS(timestamp, start_time, label);    
