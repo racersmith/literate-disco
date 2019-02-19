@@ -1,10 +1,11 @@
 #include <Wire.h>
 
  //Use Library Manager or download here: https://github.com/sparkfun/SparkFun_AK975X_Arduino_Library
-#include <SparkFun_AK975X_Arduino_Library.h>
+// #include <SparkFun_AK975X_Arduino_Library.h>
+#include <SparkFun_AK9750_Arduino_Library.h>
 #include <ArduinoJson.h>
 
-class HumanPresenceSensor: private AK975X{
+class HumanPresenceSensor: private AK9750{
   private:
     uint16_t millis_between_samples = 0;
     uint16_t next_read_millis = millis();
