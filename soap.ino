@@ -14,20 +14,11 @@
 /*
 These Secrets are defined withing the Secret.h file
 
-WiFi
-#define SECRET_SSID
-#define SECRET_SSID_PASSWORD
-
-Thinger Credentials
-#define SECRET_USERNAME
-#define SECRET_DEVICE_ID
-#define SECRET_DEVICE_CREDENTIAL
+const char ssid[]        = SECRET_SSID;
+const char pass[]        = SECRET_SSID_PASSWORD;
+const char broker[]      = SECRET_BROKER;
+const char* certificate  = SECRET_CERTIFICATE;
 */
-
-// const char ssid[]        = SECRET_SSID;
-// const char pass[]        = SECRET_SSID_PASSWORD;
-// const char broker[]      = SECRET_BROKER;
-// const char* certificate  = SECRET_CERTIFICATE;
 
 HumanPresenceSensor hps;
 GestureSensor gesture;
