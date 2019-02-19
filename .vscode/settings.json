@@ -1,5 +1,6 @@
 {
     "files.associations": {
         "iomanip": "cpp"
-    }
+    },
+    "arduino.path": "C:\\Program Files (x86)\\Arduino"
 }
