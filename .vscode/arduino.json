@@ -1,6 +1,6 @@
 {
     "sketch": "soap.ino",
     "board": "arduino:samd:mkrwifi1010",
-    "port": "/dev/ttyACM0",
+    "port": "COM3",
     "programmer": "AVRISP mkII"
 }

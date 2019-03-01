@@ -11,7 +11,7 @@
             "forcedInclude": [
                 "C:\\Users\\racer\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\samd\\1.6.19\\cores\\arduino\\Arduino.h"
             ],
-            "intelliSenseMode": "msvc-x64"
+            "intelliSenseMode": "msvc-x64"            
         }
     ],
     "version": 4
