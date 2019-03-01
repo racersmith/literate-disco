@@ -14,7 +14,6 @@ class LabelSwitch{
     for (int i=0; i<n; i++){
       pinMode(bit_pins[i], INPUT_PULLUP);
     }
-    Serial.println("Label Reader Ready");
   }
 
   int get_state(){
