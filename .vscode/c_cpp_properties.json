@@ -6,12 +6,13 @@
                 "C:\\Users\\racer\\Documents\\Arduino\\libraries\\SparkFun_Spectral_Triad_AS7265X\\src",
                 "C:\\Users\\racer\\Documents\\Arduino\\libraries\\ArduinoJson\\src",
                 "C:\\Users\\racer\\Documents\\Arduino\\libraries\\WiFiNINA\\src",
-                "C:\\Users\\racer\\Documents\\Arduino\\libraries\\SparkFun_AK9750_Human_Presence_Sensor_Library\\src"
+                "C:\\Users\\racer\\Documents\\Arduino\\libraries\\SparkFun_AK9750_Human_Presence_Sensor_Library\\src",
+                "C:\\Users\\racer\\Documents\\Arduino\\libraries\\**"
             ],
             "forcedInclude": [
                 "C:\\Users\\racer\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\samd\\1.6.19\\cores\\arduino\\Arduino.h"
             ],
-            "intelliSenseMode": "msvc-x64"            
+            "intelliSenseMode": "msvc-x64"
         }
     ],
     "version": 4
