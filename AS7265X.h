@@ -118,7 +118,50 @@ class SpectralSensor: private AS7265X{
       while(!dataAvailable());
       Read(data);
     }
-    
+
+    void WaitForData(){
+      while(!dataAvailable());
+    }
+
+    void ReadUV(JsonObject& sensor){
+      sensor["type"] = "AS7265X_UV";
+      JsonObject& sensor_data = sensor.createNestedObject("data");
+      
+      sensor_data["A"] = getCalibratedA();  // A = 410nm
+      sensor_data["B"] = getCalibratedB();  // B = 435nm
+      sensor_data["C"] = getCalibratedC();  // C = 460nm
+      sensor_data["D"] = getCalibratedD();  // D = 485nm
+      sensor_data["E"] = getCalibratedE();  // E = 510nm
+      sensor_data["F"] = getCalibratedF();  // F = 535nm
+      sensor_data["tempUV"] = getTemperature(AS72653_UV);
+    }
+
+    void ReadVis(JsonObject& sensor){
+      sensor["type"] = "AS7265X_Vis";
+      JsonObject& sensor_data = sensor.createNestedObject("data");
+      
+      sensor_data["G"] = getCalibratedG();  // G = 560nm
+      sensor_data["H"] = getCalibratedH();  // H = 585nm
+      sensor_data["I"] = getCalibratedI();  // I = 645nm
+      sensor_data["J"] = getCalibratedJ();  // J = 705nm
+      sensor_data["K"] = getCalibratedK();  // K = 900nm
+      sensor_data["L"] = getCalibratedL();  // L = 940nm
+      sensor_data["tempV"] = getTemperature(AS72652_VISIBLE);
+    }
+
+    void ReadNIR(JsonObject& sensor){
+      sensor["type"] = "AS7265X_NIR";
+      JsonObject& sensor_data = sensor.createNestedObject("data");
+      
+      sensor_data["R"] = getCalibratedR();  // R = 610nm
+      sensor_data["S"] = getCalibratedS();  // S = 680nm
+      sensor_data["T"] = getCalibratedT();  // T = 730nm
+      sensor_data["U"] = getCalibratedU();  // U = 760nm
+      sensor_data["V"] = getCalibratedV();  // V = 810nm
+      sensor_data["W"] = getCalibratedW();  // W = 860nm
+      sensor_data["tempNIR"] = getTemperature(AS72651_NIR);
+    }
+
     void ScheduledRead(JsonArray& data){
       if (millis() >= next_read_millis){
         BlockingRead(data);
