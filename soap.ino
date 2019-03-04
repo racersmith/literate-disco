@@ -61,8 +61,8 @@ void loop() {
 
 void sendHeader(unsigned long timestamp, unsigned int label){
   const size_t capacity = JSON_OBJECT_SIZE(8);
-  StaticJsonBuffer<capacity> jsonBuffer;
-  // DynamicJsonBuffer jsonBuffer(capacity);
+  // StaticJsonBuffer<capacity> jsonBuffer;
+  DynamicJsonBuffer jsonBuffer(capacity);
   JsonObject& root = jsonBuffer.createObject();
 
   root["timestamp"] = timestamp;
@@ -74,7 +74,7 @@ void sendHeader(unsigned long timestamp, unsigned int label){
   awsPublishMessage(root);
 }
 
-void sendHPS(unsigned long timestamp, unsigned long start_time, unsigned int label){
+void sendHPS(unsigned long timestamp, unsigned long start_time){
   const size_t capacity = JSON_OBJECT_SIZE(11);
   StaticJsonBuffer<capacity> jsonBuffer;
   // DynamicJsonBuffer jsonBuffer(capacity);
@@ -86,7 +86,7 @@ void sendHPS(unsigned long timestamp, unsigned long start_time, unsigned int lab
   awsPublishMessage(root);
 }
 
-void sendGesture(unsigned long timestamp, unsigned long start_time, unsigned int label){
+void sendGesture(unsigned long timestamp, unsigned long start_time){
   const size_t capacity = JSON_OBJECT_SIZE(12);
   StaticJsonBuffer<capacity> jsonBuffer;
   // DynamicJsonBuffer jsonBuffer(capacity);
@@ -98,7 +98,7 @@ void sendGesture(unsigned long timestamp, unsigned long start_time, unsigned int
   awsPublishMessage(root);
 }
 
-void sendSpectral(unsigned long timestamp, unsigned long start_time, unsigned int label){
+void sendSpectral(unsigned long timestamp, unsigned long start_time){
   const size_t capacity = JSON_OBJECT_SIZE(27);
   StaticJsonBuffer<capacity> jsonBuffer;
   // DynamicJsonBuffer jsonBuffer(capacity);
@@ -106,6 +106,42 @@ void sendSpectral(unsigned long timestamp, unsigned long start_time, unsigned in
   root["timestamp"] = timestamp;
   root["dt_start"] = millis() - start_time;
   spectral.BlockingRead(root);
+  root["dt_end"] = millis() - start_time;
+  awsPublishMessage(root);
+}
+
+void sendSpectralUV(unsigned long timestamp, unsigned long start_time){
+  const size_t capacity = JSON_OBJECT_SIZE(27);
+  StaticJsonBuffer<capacity> jsonBuffer;
+  // DynamicJsonBuffer jsonBuffer(capacity);
+  JsonObject& root = jsonBuffer.createObject();
+  root["timestamp"] = timestamp;
+  root["dt_start"] = millis() - start_time;
+  spectral.ReadUV(root);
+  root["dt_end"] = millis() - start_time;
+  awsPublishMessage(root);
+}
+
+void sendSpectralVis(unsigned long timestamp, unsigned long start_time){
+  const size_t capacity = JSON_OBJECT_SIZE(27);
+  StaticJsonBuffer<capacity> jsonBuffer;
+  // DynamicJsonBuffer jsonBuffer(capacity);
+  JsonObject& root = jsonBuffer.createObject();
+  root["timestamp"] = timestamp;
+  root["dt_start"] = millis() - start_time;
+  spectral.ReadVis(root);
+  root["dt_end"] = millis() - start_time;
+  awsPublishMessage(root);
+}
+
+void sendSpectralNIR(unsigned long timestamp, unsigned long start_time){
+  const size_t capacity = JSON_OBJECT_SIZE(27);
+  StaticJsonBuffer<capacity> jsonBuffer;
+  // DynamicJsonBuffer jsonBuffer(capacity);
+  JsonObject& root = jsonBuffer.createObject();
+  root["timestamp"] = timestamp;
+  root["dt_start"] = millis() - start_time;
+  spectral.ReadNIR(root);
   root["dt_end"] = millis() - start_time;
   awsPublishMessage(root);
 }
@@ -122,9 +158,14 @@ void test(){
     unsigned int label = label_switch.get_state();
 
     sendHeader(timestamp, label);
-    sendHPS(timestamp, start_time, label);    
-    sendGesture(timestamp, start_time, label);
-    sendSpectral(timestamp, start_time, label);
+    sendHPS(timestamp, start_time);    
+    sendGesture(timestamp, start_time);
+    // sendSpectral(timestamp, start_time);
+    spectral.WaitForData();
+    sendSpectralUV(timestamp, start_time);
+    sendSpectralVis(timestamp, start_time);
+    sendSpectralNIR(timestamp, start_time);
+
 
     spectral.Illuminate(false);
     digitalWrite(SAMPLE_INDICATOR, LOW);
