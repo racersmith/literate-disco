@@ -48,7 +48,7 @@ void connectWiFi() {
 }
 
 void connectMQTT() {
-    Serial.print("Attempting to MQTT broker: ");
+    Serial.print("Attempting to connect to MQTT broker: ");
     Serial.print(broker);
     Serial.println(" ");
 
