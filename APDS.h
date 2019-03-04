@@ -55,6 +55,8 @@ class GestureSensor: private SparkFun_APDS9960{
   public:
     void Initialize(){
       if (init()){
+        Update();
+        up_to_date = false;
         Serial.println(F("APDS9960 - Gesture Sensor Initiallized"));
       }
       else{

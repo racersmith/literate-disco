@@ -47,8 +47,9 @@ void setup() {
   pinMode(SAMPLE_INDICATOR, OUTPUT);
 
   awsSetup();
-  // awsHandle();
+  awsHandle();
   
+  while(gesture.IsActive()){}
   last_read = millis();
   Serial.println("Setup Complete");
 }
