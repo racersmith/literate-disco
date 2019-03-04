@@ -1,5 +1,4 @@
-Secret.h
-build/
-build/build.options.json
-build/sketch/soap.ino.cpp
-.vscode/
+**/build
+**/.vscode
+[sS]ecret*
+*[kK]ey*
