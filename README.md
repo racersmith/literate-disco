@@ -9,6 +9,3 @@ This project is for taking sensor measurements using an Arduino MKR1010 and push
 
 ## Acknowledgments
 Great [AWS tutorial](https://create.arduino.cc/projecthub/Arduino_Genuino/securely-connecting-an-arduino-mkr-wifi-1010-to-aws-iot-core-a9f365) and libraries from Sandeep Mistry.
-
-
-
